@@ -6,15 +6,17 @@ steps:
   - label: "Run Tests"
     agents: { queue: devops }
     command: "cd app && npm test"
-
   - label: "SonarQube Scan"
     agents:
       queue: devops
     command: |
-      npm install -g sonar-scanner
+      echo "Current directory:"
+      pwd
+      dir
+
       sonar-scanner \
-        -Dsonar.host.url=http://host.docker.internal:9000 \
-        -Dsonar.token=squ_cba217186c50346fbeead8f2e583e4244a9c733a
+        "-Dsonar.host.url=http://localhost:9000" \
+        "-Dsonar.token=squ_cba217186c50346fbeead8f2e583e4244a9c733a"
 
   - label: "Build Docker Image"
     agents: { queue: devops }
