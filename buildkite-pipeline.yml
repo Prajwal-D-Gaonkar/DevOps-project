@@ -8,12 +8,14 @@ steps:
     agents:
       queue: devops
     command: "cd app && npm test"
-
   - label: "SonarQube Scan"
     agents:
       queue: devops
-    command: "sonar-scanner -Dsonar.token=$SONAR_TOKEN"
+    command: |
+      npm install -g sonar-scanner
+      sonar-scanner -Dsonar.token=$SONAR_TOKEN
 
+      
   - label: "Build Docker Image"
     agents:
       queue: devops
