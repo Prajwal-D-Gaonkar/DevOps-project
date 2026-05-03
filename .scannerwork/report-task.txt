@@ -2,5 +2,5 @@ projectKey=devsecops-app
 serverUrl=http://localhost:9000
 serverVersion=26.4.0.121862
 dashboardUrl=http://localhost:9000/dashboard?id=devsecops-app
-ceTaskId=f77d2a27-72d0-4be0-ac44-a0a9a8f5c35a
-ceTaskUrl=http://localhost:9000/api/ce/task?id=f77d2a27-72d0-4be0-ac44-a0a9a8f5c35a
+ceTaskId=74d118b1-dfc6-4baa-8939-cea79df5a693
+ceTaskUrl=http://localhost:9000/api/ce/task?id=74d118b1-dfc6-4baa-8939-cea79df5a693

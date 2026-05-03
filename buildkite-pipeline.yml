@@ -10,7 +10,12 @@ steps:
   - label: "SonarQube Scan"
     agents:
       queue: devops
-    command: sonar-scanner
+    command: |
+      sonar-scanner ^
+        "-Dsonar.projectKey=devsecops-app" ^
+        "-Dsonar.sources=app" ^
+        "-Dsonar.host.url=http://host.docker.internal:9000" ^
+        "-Dsonar.token=squ_cba217186c50346fbeead8f2e583e4244a9c733a"
   - label: "Build Docker Image"
     agents: { queue: devops }
     command: "docker build -t devsecops-app ."
