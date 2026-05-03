@@ -14,8 +14,9 @@ steps:
       queue: devops
     command: |
       npm install -g sonar-scanner
-      sonar-scanner -Dsonar.token=$SONAR_TOKEN
-
+      sonar-scanner \
+        -Dsonar.host.url=http://host.docker.internal:9000 \
+        -Dsonar.token=$SONAR_TOKEN
   - label: "Build Docker Image"
     agents:
       queue: devops
