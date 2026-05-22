@@ -1,21 +1,30 @@
 steps:
   - label: "Install Dependencies"
     agents: { queue: devops }
-    command: "cd app && npm install"
+    plugins:
+      - docker#v5.9.0:
+          image: "node:18"
+    command: |
+      cd app
+      npm install
 
   - label: "Run Tests"
     agents: { queue: devops }
-    command: "cd app && npm test"
+    plugins:
+      - docker#v5.9.0:
+          image: "node:18"
+    command: |
+      cd app
+      npm test
 
   - label: "SonarQube Scan"
     agents:
       queue: devops
     command: |
-      sonar-scanner ^
-        "-Dsonar.projectKey=devsecops-app" ^
-        "-Dsonar.sources=app" ^
-        "-Dsonar.host.url=http://host.docker.internal:9000" ^
-        "-Dsonar.token=squ_cba217186c50346fbeead8f2e583e4244a9c733a"
+      cd "$BUILDKITE_BUILD_CHECKOUT_PATH"
+      sonar-scanner
+
   - label: "Build Docker Image"
     agents: { queue: devops }
-    command: "docker build -t devsecops-app ."
+    command: |
+      docker build -t devsecops-app .
