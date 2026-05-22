@@ -1,27 +1,26 @@
 steps:
   - label: "Install Dependencies"
     agents: { queue: devops }
-    plugins:
-      - docker#v5.9.0:
-          image: "node:18"
     command: |
-      cd app
-      npm install
+      docker run --rm \
+        -v "$PWD:/app" \
+        -w /app/app \
+        node:18 \
+        npm install
 
   - label: "Run Tests"
     agents: { queue: devops }
-    plugins:
-      - docker#v5.9.0:
-          image: "node:18"
     command: |
-      cd app
-      npm test
+      docker run --rm \
+        -v "$PWD:/app" \
+        -w /app/app \
+        node:18 \
+        npm test
 
   - label: "SonarQube Scan"
     agents:
       queue: devops
     command: |
-      cd "$BUILDKITE_BUILD_CHECKOUT_PATH"
       sonar-scanner
 
   - label: "Build Docker Image"
